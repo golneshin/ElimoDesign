@@ -1,4 +1,4 @@
-import { alegreya } from "./layout";
+import { alegreya } from "../layout";
 
 const page = () => {
   return (
