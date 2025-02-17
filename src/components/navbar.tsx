@@ -2,15 +2,15 @@
 
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
+  const user = false;
   const [scrolling, setScrolling] = useState(false);
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname !== "/courses") return; // Apply only on Courses page
+    // if (pathname !== "/courses") return;
 
     const handleScroll = () => {
       setScrolling(window.scrollY > 50);
@@ -18,7 +18,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
+  }, []);
 
   return (
     <nav
@@ -63,12 +63,14 @@ export default function Navbar() {
             </Link>
 
             {/* Sign In Button */}
-            <Link
-              href="/signin"
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium border border-gray-300 hover:border-white transition duration-300"
-            >
-              Sign In
-            </Link>
+            {!user && (
+              <Link
+                href="/sign-in"
+                className="text-red-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium border border-red-300 hover:border-white transition duration-300"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       </div>

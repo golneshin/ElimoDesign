@@ -1,5 +1,5 @@
 import Course from "@/components/course";
-import coursesInformation from "@/courses-information";
+import coursesInformation from "@/courses-information"; // todo: it should be done in DataBase.
 
 const page = () => {
   return (
