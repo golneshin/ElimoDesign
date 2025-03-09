@@ -10,7 +10,7 @@ interface courseProps {
 
 const Course = ({ course }: { course: courseProps }) => {
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div className="max-w-sm bg-white/90 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800/90 dark:border-gray-700">
       <Link href="#">
         <Image
           className="rounded-t-lg"
@@ -29,17 +29,17 @@ const Course = ({ course }: { course: courseProps }) => {
         <p className="mb-3 text-gray-700 dark:text-gray-400">
           {course.description}
         </p>
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-4">
           <Link
             href={`/courses/${course.name}`}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            className="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-black bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-white dark:text-black dark:hover:bg-gray-100 dark:focus:ring-gray-800 border border-gray-200"
           >
             Add to Card &nbsp;&nbsp; <ShoppingCart />
           </Link>
 
           <Link
             href={`/courses/${course.name}`}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white bg-black rounded-lg hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-black dark:hover:bg-gray-900 dark:focus:ring-gray-800"
           >
             Read more &nbsp;&nbsp; <MoveRight />
           </Link>
