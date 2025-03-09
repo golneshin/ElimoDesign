@@ -1,6 +1,9 @@
+"use client";
+
 import { MoveRight, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useCart } from "@/store/useCart";
 
 interface courseProps {
   name: string;
@@ -9,6 +12,12 @@ interface courseProps {
 }
 
 const Course = ({ course }: { course: courseProps }) => {
+  const addItem = useCart((state) => state.addItem);
+
+  const handleAddToCart = () => {
+    addItem(course.name);
+  };
+
   return (
     <div className="max-w-sm bg-white/90 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800/90 dark:border-gray-700">
       <Link href="#">
@@ -30,12 +39,12 @@ const Course = ({ course }: { course: courseProps }) => {
           {course.description}
         </p>
         <div className="flex justify-between gap-4">
-          <Link
-            href={`/courses/${course.name}`}
+          <button
+            onClick={handleAddToCart}
             className="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-black bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-white dark:text-black dark:hover:bg-gray-100 dark:focus:ring-gray-800 border border-gray-200"
           >
-            Add to Card &nbsp;&nbsp; <ShoppingCart />
-          </Link>
+            Add to Cart &nbsp;&nbsp; <ShoppingCart />
+          </button>
 
           <Link
             href={`/courses/${course.name}`}
