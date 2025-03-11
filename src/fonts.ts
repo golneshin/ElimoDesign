@@ -1,4 +1,4 @@
-import { Alegreya, Geist, Geist_Mono } from "next/font/google";
+import { Alegreya, Inter } from "next/font/google";
 
 export const alegreya = Alegreya({
   subsets: ["latin"],
@@ -6,12 +6,12 @@ export const alegreya = Alegreya({
   style: ["italic", "normal"],
 });
 
-export const geistSans = Geist({
+export const geistSans = Inter({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-export const geistMono = Geist_Mono({
+export const geistMono = Inter({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
