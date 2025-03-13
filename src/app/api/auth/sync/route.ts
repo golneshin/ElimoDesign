@@ -5,7 +5,7 @@ import type { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -15,13 +15,14 @@ export async function POST(request: NextRequest) {
 
     // Try to create/update the user in our database
     const user = await prisma.user.upsert({
-      where: { email: userData.email_addresses[0].emailAddress },
+      where: { id: parseInt(userId) },
       update: {
         name: `${userData.first_name} ${userData.last_name}`.trim(),
         imageUrl: userData.image_url,
         signedInDate: new Date(),
       },
       create: {
+        id: parseInt(userId),
         email: userData.email_addresses[0].emailAddress,
         name: `${userData.first_name} ${userData.last_name}`.trim(),
         imageUrl: userData.image_url,
