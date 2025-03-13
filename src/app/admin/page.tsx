@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 
 export default function AdminPage() {
   const { user, isLoaded } = useUser();
