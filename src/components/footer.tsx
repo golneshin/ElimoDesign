@@ -99,7 +99,7 @@ export default function Footer() {
                   href="/contact-me"
                   className="block text-gray-300 hover:text-white text-sm transition duration-300"
                 >
-                  Contact Me
+                  Contact
                 </Link>
               </div>
             </div>
