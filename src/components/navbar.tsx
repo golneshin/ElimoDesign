@@ -1,15 +1,18 @@
 "use client";
 
-import { SignInButton, SignOutButton, useAuth } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, useAuth, useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { MoveRight, Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useCart } from "@/store/useCart";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const { isSignedIn } = useAuth();
+  const { user, isLoaded } = useUser();
+  const pathname = usePathname();
   const [scrolling, setScrolling] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const cartItems = useCart((state) => state.items);
@@ -22,6 +25,24 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isLoaded && user) {
+      console.log("User email:", user.emailAddresses[0].emailAddress);
+      console.log(
+        "Is admin:",
+        user.emailAddresses[0].emailAddress === "golneshin@gmail.com"
+      );
+    }
+  }, [isLoaded, user]);
+
+  const isAdmin =
+    isLoaded && user?.emailAddresses[0].emailAddress === "golneshin@gmail.com";
+  const isAdminPage = pathname === "/admin";
+
+  console.log("isLoaded:", isLoaded);
+  console.log("isAdmin:", isAdmin);
+  console.log("isAdminPage:", isAdminPage);
 
   return (
     <nav
@@ -64,7 +85,7 @@ export default function Navbar() {
               href="/contact-me"
               className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-300"
             >
-              Contact Me
+              Contact
             </Link>
           </div>
 
@@ -94,7 +115,7 @@ export default function Navbar() {
                   href="/contact-me"
                   className="text-gray-300 hover:text-white px-4 py-2 w-full text-sm font-medium transition duration-300"
                 >
-                  Contact Me
+                  Contact
                 </Link>
               </div>
             </div>
@@ -120,7 +141,7 @@ export default function Navbar() {
               </Link>
             </div>
           ) : (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Cart Icon with Badge */}
               <Link href="/cart" className="relative hidden md:flex">
                 <ShoppingCart className="h-6 w-6 text-white hover:text-gray-300 transition-colors" />
@@ -139,6 +160,14 @@ export default function Navbar() {
                   Sign out
                 </Button>
               </SignOutButton>
+              {isAdmin && !isAdminPage && (
+                <Link
+                  href="/admin"
+                  className="inline-flex items-center justify-center text-blue-300 hover:text-white px-3 py-2 h-9 rounded-md text-sm font-medium border border-blue-300 hover:border-white transition duration-300"
+                >
+                  Admin
+                </Link>
+              )}
               <Link
                 href="/dashboard"
                 className="hidden md:inline-flex items-center justify-center text-green-300 hover:text-white px-3 py-2 h-9 rounded-md text-sm font-medium border border-green-300 hover:border-white transition duration-300"
